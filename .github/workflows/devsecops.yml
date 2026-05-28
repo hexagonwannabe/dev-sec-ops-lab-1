@@ -175,7 +175,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker image
-        run: docker build -t lab-app:${{ github.sha }} -f session3/Dockerfile .
+        run: |
+          cp session1/app_secure.py .
+          cp -r session1/templates .
+          docker build -t lab-app:${{ github.sha }} -f session3/Dockerfile .
       - name: Run Trivy container scan
         uses: aquasecurity/trivy-action@master
         with:
